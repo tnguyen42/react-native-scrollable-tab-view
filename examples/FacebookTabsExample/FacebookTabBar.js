@@ -42,21 +42,29 @@ var FacebookTabBar = React.createClass({
     tabs: React.PropTypes.array
   },
 
-  renderTabOption(name, page) {
-    var isTabActive = this.props.activeTab === page;
-    console.log(name);
+	renderTabOption(name, page) {
+		var isTabActive = this.props.activeTab === page;
+		var numberOfTabs = this.props.tabs.length;
+		var iconWidth;
+		var iconHeight;
+		var iconSize;
+//	console.log(name);
 
-    return (
-      <TouchableOpacity key={name} onPress={() => this.props.goToPage(page)}>
-        <View style={[styles.tab]}>
-          <Icon name={name} size={30} color='#3B5998' style={{width: 30, height: 30, position: 'absolute', top: 0, left: 20}}
-                ref={(icon) => { this.selectedTabIcons[page] = icon }}/>
-          <Icon name={name} size={30} color='#ccc' style={{width: 30, height: 30, position: 'absolute', top: 0, left: 20}}
-                ref={(icon) => { this.unselectedTabIcons[page] = icon }}/>
-        </View>
-      </TouchableOpacity>
-    );
-  },
+		iconWidth = 30;
+		iconHeight = 30;
+		iconSize = 30;
+		var iconPadding = deviceWidth / (2 * numberOfTabs) - iconWidth / 2;
+		return (
+			<TouchableOpacity key={name} onPress={() => this.props.goToPage(page)}>
+				<View style={[styles.tab]}>
+					<Icon name={name} size={iconSize} color='#3B5998' style={{width: iconWidth, height: iconHeight, position: 'absolute', top: 0, left: iconPadding}}
+						ref={(icon) => { this.selectedTabIcons[page] = icon }}/>
+					<Icon name={name} size={iconSize} color='#ccc' style={{width: iconWidth, height: iconHeight, position: 'absolute', top: 0, left: iconPadding}}
+						ref={(icon) => { this.unselectedTabIcons[page] = icon }}/>
+				</View>
+			</TouchableOpacity>
+		);
+	},
 
   setAnimationValue(value) {
     var currentPage = this.props.activeTab;
